@@ -1,5 +1,11 @@
-#淘宝镜像安装：https://blog.csdn.net/qq_30100043/article/details/78598520
+# 依赖环境： Node
 
-#运行项目： 
-  step1: cnpm i 
-  step2: npm run admin
+  ## Node安装：https://www.runoob.com/nodejs/nodejs-install-setup.html
+
+# 初次使用
+
+  ## 淘宝镜像安装：https://blog.csdn.net/qq_30100043/article/details/78598520
+
+  ## 运行项目： 
+  ### step1: cnpm i 
+  ### step2: npm run admin
