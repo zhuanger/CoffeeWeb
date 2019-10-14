@@ -14,4 +14,5 @@
 
 # 相关文档
 
-  ## mysql-node： https://github.com/mysqljs/mysql#readme
+  ## node-mysql： https://github.com/mysqljs/mysql#readme
+  ## express: http://www.expressjs.com.cn/4x/api.html
