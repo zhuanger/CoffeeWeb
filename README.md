@@ -16,3 +16,4 @@
 
   ## node-mysql： https://github.com/mysqljs/mysql#readme
   ## express: http://www.expressjs.com.cn/4x/api.html
+  ## sequelize: https://sequelize.org/master/manual/getting-started.html

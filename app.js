@@ -6,7 +6,6 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var ajax = require('./utils/ajax');
 var app = express();
-var mysql = require('mysql');
 
 
 global.Promise  = require("bluebird");
@@ -19,6 +18,8 @@ global.__routes = `${__dirname}\\routes\\` ;
 global.__utils = `${__dirname}\\utils\\` 
 global.__services = `${__dirname}\\services\\` 
 global.__dao = `${__dirname}\\dao\\` 
+
+const db = require(__utils + 'dataBase.js')
 
 app.use(logger('dev'));
 app.use(express.json());
