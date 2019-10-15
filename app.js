@@ -18,8 +18,7 @@ global.__routes = `${__dirname}\\routes\\` ;
 global.__utils = `${__dirname}\\utils\\` 
 global.__services = `${__dirname}\\services\\` 
 global.__dao = `${__dirname}\\dao\\` 
-
-const db = require(__utils + 'dataBase.js')
+global.__model = `${__dirname}\\models\\` 
 
 app.use(logger('dev'));
 app.use(express.json());

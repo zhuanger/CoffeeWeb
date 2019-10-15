@@ -1,13 +1,11 @@
-let dataBase = require(__utils + 'dataBase')
+let userModel = require(__model + 'userModel.js')
 
 let userDao = {
   query(){
     return new Promise((reslove, reject)=>{
-      dataBase().getConnectionAsync().then((connected)=>{
-        connected.query('SELECT name From users', function(err,res){
-          console.log(res)
-          reslove(res) 
-        })    
+      // console.log(userModel.findAll)
+      userModel.findAll().then((res)=>{
+        console.log(res)
       })
     })
   }
