@@ -17,3 +17,9 @@
   ## node-mysql： https://github.com/mysqljs/mysql#readme
   ## express: http://www.expressjs.com.cn/4x/api.html
   ## sequelize: https://sequelize.org/master/manual/getting-started.html
+
+# 项目结构
+  ## routes文件夹是接口层
+  ## service文件夹是控制层（处理逻辑）
+  ## dao文件夹是dao层，用于增删改查数据库
+  ## model文件夹是实体类，相当于数据表
