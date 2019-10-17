@@ -4,11 +4,19 @@ module.exports = function(app){
     send(type, url){
       return new Promise((resolve, reject)=>{
         app[type](url, function(req,res,next){
+          console.log('next: ', next)
           if(res){
             if(type === 'get'){
-              resolve(req.query)
+              resolve({
+                query: req.query,
+                response: res,
+                next: next
+              })
             }else if(type === 'post'){
-              resolve(JSON.parse(req.body.data))
+              resolve({
+                params: JSON.parse(req.body.data),
+                res: res
+              })
             }
           }else{
             //todo

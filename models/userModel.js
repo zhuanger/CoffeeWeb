@@ -13,6 +13,8 @@ const User = sequelize.define('users', {
   },
   // 时间戳
   
+},{
+  timestamps: false  // 解决findall时候出现unknown createdAt
 })
 module.exports = User
 
