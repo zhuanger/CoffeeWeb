@@ -19,7 +19,7 @@ const Good = sequelize.define('goods',{
         type: Sequelize.BLOB('medium')
     },
     price:{
-        type: Sequelize.DECIMALs(20, 2)
+        type: Sequelize.DECIMAL(20, 2)
     },
     stock:{
         type: Sequelize.INTEGER,
