@@ -39,7 +39,7 @@ let userDao = {
   select(res){
     return new Promise((reslove, reject)=>{
       //增加一个用户，注册
-      userModel.findOne({name:res.params.username,password:res.params.password}).then((res)=>{
+      userModel.findOne({username:res.params.username,password:res.params.password}).then((res)=>{
         console.log('return service',res)
         reslove(res)
       })
