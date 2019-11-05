@@ -4,7 +4,6 @@ module.exports = function(app){
     send(type, url){
       return new Promise((resolve, reject)=>{
         app[type](url, function(req,res,next){
-          console.log('next: ', next)
           if(res){
             if(type === 'get'){
               resolve({
@@ -14,8 +13,9 @@ module.exports = function(app){
               })
             }else if(type === 'post'){
               resolve({
-                params: JSON.parse(req.body.data),
-                res: res
+                params: req.body,
+                response: res,
+                next: next
               })
             }
           }else{

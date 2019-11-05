@@ -1,7 +1,7 @@
 let userModel = require(__model + 'userModel.js')
 
 let userDao = {
-  query(){
+  query(username, password){
     /**
      * 因为Sequelize的全部方法全部异步的，所以用Promise来处理异步
      * userService 用asyn/await来处理异步操作，让异步变为同步
@@ -17,11 +17,31 @@ let userDao = {
      *    step one > step four > step two >step three
      */
     return new Promise((reslove, reject)=>{
-      userModel.findAll({raw: true}).then((res)=>{
-        //[ { name: '小李', userId: 1000 }, { name: '小林', userId: 1001 } ]
-        console.log('step four', res)
+      //增加一个用户，注册
+      console.log(username,password)
+      userModel.create({name: username, password: password}).then((res)=>{
+        console.log('step five',res)
         reslove(res)
-        // return res
+      })
+      //查询一个用户，登录
+    })
+  },
+  addUser(){
+    return new Promise((reslove, reject)=>{
+      //增加一个用户，注册
+      console.log('enter dao')
+      userModel.findAll().then((res)=>{
+        console.log('return service',res)
+        reslove(res)
+      })
+    })
+  },
+  select(res){
+    return new Promise((reslove, reject)=>{
+      //增加一个用户，注册
+      userModel.findOne({name:res.params.username,password:res.params.password}).then((res)=>{
+        console.log('return service',res)
+        reslove(res)
       })
     })
   }

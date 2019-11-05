@@ -1,8 +1,7 @@
 let userService = require(__services + 'userService')
 module.exports = function (app) {
-  $ajax.get('/').then((res)=>{
-    console.log(res.query)
-    userService.getUserInfo().then((result)=>{
+  $ajax.post('/login').then((res)=>{
+    userService.loginUser(res).then((result)=>{
       console.log('step three', result)
       //统一返回格式
       res.response.send({
