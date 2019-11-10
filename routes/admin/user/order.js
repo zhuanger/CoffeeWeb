@@ -14,9 +14,7 @@ module.exports = function (app) {
         })
     }).catch((err)=>{
         console.log(err)
-      })
-}
-module.exports = function (app) {
+    });
     $ajax.get('/orders').then((res)=>{
         console.log('enter')
         orderService.orderSelect().then((result)=>{
@@ -31,5 +29,5 @@ module.exports = function (app) {
         })
     }).catch((err)=>{
         console.log(err)
-      })
+    })
 }

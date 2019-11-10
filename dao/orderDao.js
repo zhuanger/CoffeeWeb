@@ -3,8 +3,7 @@ let orderModel = require(__model + 'orderModel.js')
 let orderDao = {
     create(res){
         return new Promise((reslove, reject)=>{
-            orderModel.create({id: res.params.id,sum_money: res.params.sum_money,
-                whether_pay: res.params.whether_pay}).then((res)=>{
+            orderModel.create(res.params).then((res)=>{
                 reslove(res)
             })
         })

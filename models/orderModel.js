@@ -15,6 +15,9 @@ const Order = sequelize.define('orders',{
     },
     whether_pay:{
         type: Sequelize.ENUM('True', 'False')
+    },
+    order_goods:{
+        type: Sequelize.JSON
     }
 },{
     timestamps: false,  // 解决findall时候出现unknown createdAt

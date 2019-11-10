@@ -16,5 +16,12 @@ module.exports = function (app) {
     })
   }).catch((err)=>{
     console.log(err)
-  })
+    });
+  //get请求,页面没有先写个请求
+  $ajax.get('/login').then((res)=>{
+    res.response.send('login的get请求')
+    res.next()
+  }).catch((err)=>{
+    console.log(err)
+    })
 }

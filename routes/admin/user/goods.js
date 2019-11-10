@@ -1,21 +1,30 @@
 let goodService = require(__services + 'goodService')
 module.exports = function (app) {
-    $ajax.get('/goods').then((res)=>{  // res -> {res.query,req,next}
-      console.log(res.query.id)
-      goodService.getGoodInfo(res).then((result)=>{
-        console.log('step three', result)
+    $ajax.post('/goods').then((res)=>{  // res -> {res.query,req,next}
+      goodService.CreateGood(res).then((result)=>{
       //统一返回格式
         res.response.send({
           code: 200,
-          msg: '查询成功',
+          msg: '创建成功',
           data: {
-            product: result.product,
-            component: result.component,
-            price: result.price,
-            stock: result.stock
+            result: result
           }
         })
         //记得最后加next() https://stackoverflow.com/questions/51535455/express-js-use-async-function-on-requests/51538169#51538169
+        res.next() 
+      })
+    }).catch((err)=>{
+    console.log(err)
+    });
+    $ajax.get('/goods').then((res)=>{
+      goodService.getAllGoods().then((result)=>{
+        res.response.send({
+          code:200,
+          msg: '查询成功',
+          data:{
+            result: result
+          }
+        })
         res.next() 
       })
     }).catch((err)=>{

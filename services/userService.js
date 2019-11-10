@@ -7,14 +7,14 @@ const UserService = {
   },
   async getUserInfo(){
     console.log('step one')
-    let res = await userDao.addUser()
+    let res = await userDao.query()
     console.log('step two')
 
     return res
   },
-  async addUser(userName, password){
-    let res = await userDao.query(userName, password)
-    return res
+  async addUser(res){
+    let result = await userDao.addUser(res)
+    return result
   }
 }
 module.exports = UserService

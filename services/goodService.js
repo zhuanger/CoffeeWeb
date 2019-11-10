@@ -1,10 +1,12 @@
 let goodDao = require('../dao/goodDao')
 
 const goodService = {
-    async getGoodInfo(res){
-        console.log('enter service 1')
-        let result = await goodDao.query(res)
-        console.log('return service 1')
+    async CreateGood(res){
+        let result = await goodDao.CreateGood(res)
+        return result
+    },
+    async getAllGoods(){
+        let result = await goodDao.selectall()
         return result
     }
 }
