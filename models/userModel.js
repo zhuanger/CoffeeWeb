@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require(__utils + 'dataBase.js')
-const User = sequelize.define('users', {
+const Role = require(__model + 'roleModel.js')
+console.log(sequelize);
+var User = sequelize.define('users', {
   id: {
     primaryKey: true,
     allowNull: true,
@@ -24,7 +26,13 @@ const User = sequelize.define('users', {
 },{
   timestamps: false  // 解决findall时候出现unknown createdAt
 })
+// User.associate = function(models){
+//   User.hasOne(model.Role,
+//     { foreignKey: 'user_id'}
+//     )
+// }
+console.log('user----odel', User);
+// Role.belongsTo(User)
 module.exports = User
-
 // createdAt: Sequelize.DATE,
   // updatedAt: Sequelize.DATE,

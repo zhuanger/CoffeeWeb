@@ -1,4 +1,5 @@
 let userModel = require(__model + 'userModel.js')
+let roleModel = require(__model + 'roleModel.js')
 
 let userDao = {
   addUser(res){
@@ -19,8 +20,11 @@ let userDao = {
     return new Promise((reslove, reject)=>{
       //增加一个用户，注册
       userModel.create(res.params).then((res)=>{
-        console.log('step five',res)
-        reslove(res)
+        // roleModel.create({name: 'worker',describe: '工作人员'})]
+          console.log('step five',res)
+          var role = roleModel.build({name: 'worker', describe: '工作人员'})
+          userModel.setroleModel(role)
+          reslove(res)
       })
     })
   },
@@ -36,8 +40,10 @@ let userDao = {
   },
   select(res){
     return new Promise((reslove, reject)=>{
-      //增加一个用户，注册
-      userModel.findOne({username:res.params.username,password:res.params.password}).then((res)=>{
+      //
+      userModel.findOne({
+        where: {username:res.params.username,password:res.params.password},
+      }).then((res)=>{
         console.log('return service',res)
         reslove(res)
       })
