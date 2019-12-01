@@ -17,13 +17,25 @@ let userDao = {
      *  如果用Promise 和async/await
      *    step one > step four > step two >step three
      */
+    // var role = new Promise((reslove, reject) => {
+    //   roleModel.findOne({where: {name: 'worker'}}).then((role)=>{
+    //     reslove(role)
+    //   })
+    // })
+    // var user = new Promise((reslove,reject) => {
+    //   userModel.create(res.params).then((user)=>{
+    //     reslove(user)
+    //   })
+    // })
+    // Promise.all([user, role, userrole]).then((result) => {
+    //   console.log(user)
+    //   console.log(role.id)
+    // })
+      
     return new Promise((reslove, reject)=>{
       //增加一个用户，注册
-      userModel.create(res.params).then((res)=>{
-        // roleModel.create({name: 'worker',describe: '工作人员'})]
-          console.log('step five',res)
-          var role = roleModel.build({name: 'worker', describe: '工作人员'})
-          userModel.setroleModel(role)
+      userModel.create({username: res.params.username, password: res.params.password, role_id: 1}).then((res)=>{
+          console.log(res)
           reslove(res)
       })
     })
@@ -39,13 +51,27 @@ let userDao = {
     })
   },
   select(res){
+    // 登录
     return new Promise((reslove, reject)=>{
       //
       userModel.findOne({
-        where: {username:res.params.username,password:res.params.password},
+        where: {username:res.params.username,password:res.params.password}
       }).then((res)=>{
-        console.log('return service',res)
-        reslove(res)
+        var user = res.dataValues
+        roleModel.findOne({
+          where: {id: res.dataValues.role_id}
+        }).then((res)=>{
+          var data = {}
+          var user1 = {}
+          user1['id'] = user.id
+          user1['username'] = user.username
+          user1['avatar'] = user.avatar
+          data['user'] = user1
+          data['role'] = res.dataValues
+          console.log(data)
+          reslove(data)
+        })
+        // reslove(res)
       })
     })
   }

@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize');
 const sequelize = require(__utils + 'dataBase.js')
-const Role = require(__model + 'roleModel.js')
-console.log(sequelize);
 var User = sequelize.define('users', {
   id: {
     primaryKey: true,
@@ -20,10 +18,12 @@ var User = sequelize.define('users', {
   },
   avatar: {
     type: Sequelize.BLOB('medium')
+  },
+  role_id: {
+    type: Number
   }
-  // 时间戳
-  
 },{
+  // 时间戳
   timestamps: false  // 解决findall时候出现unknown createdAt
 })
 // User.associate = function(models){
@@ -31,8 +31,7 @@ var User = sequelize.define('users', {
 //     { foreignKey: 'user_id'}
 //     )
 // }
-console.log('user----odel', User);
-// Role.belongsTo(User)
+// console.log('user----odel', User);
 module.exports = User
 // createdAt: Sequelize.DATE,
   // updatedAt: Sequelize.DATE,
