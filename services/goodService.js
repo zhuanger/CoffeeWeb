@@ -8,6 +8,10 @@ const goodService = {
     async getAllGoods(){
         let result = await goodDao.selectall()
         return result
+    },
+    async SelectOneGood(res){
+        let result = await goodDao.selectone(res)
+        return result
     }
 }
 module.exports = goodService
