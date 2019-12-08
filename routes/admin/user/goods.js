@@ -1,6 +1,6 @@
 let goodService = require(__services + 'goodService')
 module.exports = function (app) {
-    //创建一个商品
+    //创建一杯饮品
     $ajax.post('/goods').then((res)=>{  // res -> {res.query,req,next}
       goodService.CreateGood(res).then((result)=>{
       //统一返回格式
@@ -17,7 +17,7 @@ module.exports = function (app) {
     }).catch((err)=>{
     console.log(err)
     });
-    //获取所有商品
+    //获取所有饮品
     $ajax.get('/goods').then((res)=>{
       goodService.getAllGoods().then((result)=>{
         res.response.send({
@@ -32,8 +32,39 @@ module.exports = function (app) {
     }).catch((err)=>{
     console.log(err)
     });
+    // 根据id获取一件饮品的信息
     $ajax.get('/goodsinfo/:id').then((res)=>{
       goodService.SelectOneGood(res).then((result)=>{
+        res.response.send({
+          code: 200,
+          msg: '查询成功',
+          data:{
+            result: result
+          }
+        })
+        res.next()
+      })
+    }).catch((err)=>{
+      console.log(err)
+    });
+    // 查询饮品有多少种分类
+    $ajax.get('/goodtypes').then((res)=>{
+      goodService.SelectGoodType(res).then((result)=>{
+        res.response.send({
+          code: 200,
+          msg: '查询成功',
+          data:{
+            result: result
+          }
+        })
+        res.next()
+      })
+    }).catch((err)=>{
+      console.log(err)
+    });
+    // 通过分类的id聚合饮品
+    $ajax.get('/goodtypesinfo/:good_types_id').then((res)=>{
+      goodService.SelectGoodTypeInfo(res).then((result)=>{
         res.response.send({
           code: 200,
           msg: '查询成功',

@@ -35,6 +35,9 @@ const Good = sequelize.define('goods',{
     shelf_situation:{
         type: Sequelize.ENUM('True', 'False') ,
         // allowNull = false
+    },
+    good_types_id: {
+        type: Number
     }
 },{
     timestamps: false,  // 解决findall时候出现unknown createdAt
