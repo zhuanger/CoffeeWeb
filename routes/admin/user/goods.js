@@ -62,9 +62,54 @@ module.exports = function (app) {
     }).catch((err)=>{
       console.log(err)
     });
+    // 新建分类
+    $ajax.post('/createtype').then((res)=>{
+      goodService.CreateType(res).then((result)=>{
+        res.response.send({
+          code: 200,
+          msg: '新建成功',
+          data:{
+            result: result
+          }
+        })
+        res.next()
+      })
+    }).catch((err)=>{
+      console.log(err)
+    });
     // 通过分类的id聚合饮品
     $ajax.get('/goodtypesinfo/:good_types_id').then((res)=>{
       goodService.SelectGoodTypeInfo(res).then((result)=>{
+        res.response.send({
+          code: 200,
+          msg: '查询成功',
+          data:{
+            result: result
+          }
+        })
+        res.next()
+      })
+    }).catch((err)=>{
+      console.log(err)
+    });
+    // 查询最热的饮品,限制五条
+    $ajax.get('/hotgoods').then((res)=>{
+      goodService.SelectHotGoods().then((result)=>{
+        res.response.send({
+          code: 200,
+          msg: '查询成功',
+          data:{
+            result: result
+          }
+        })
+        res.next()
+      })
+    }).catch((err)=>{
+      console.log(err)
+    });
+    // 查询最新的饮品,限制五条
+    $ajax.get('/newgoods').then((res)=>{
+      goodService.SelectNewGoods().then((result)=>{
         res.response.send({
           code: 200,
           msg: '查询成功',
