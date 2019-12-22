@@ -4,13 +4,11 @@ module.exports = function (app) {
     let data = $transformData(req.body);
     userService.loginUser(data).then((result)=>{
       //统一返回格式
-      console.log('----------------', result);
       let _msg = {
         200: '查询成功',
         201: '输入的账号有误',
         202: '密码错误'
       }
-      console.log('----------res.spone');
       res.send({
         code: result.code,
         msg: _msg[result.code],

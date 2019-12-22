@@ -5,7 +5,7 @@ let userDao = {
   addUser(res){
     return new Promise((reslove, reject)=>{
       //增加一个用户，注册
-      userModel.create({username: res.params.username, password: res.params.password, role_id: 1}).then((res)=>{
+      userModel.create({username: res.username, password: res.password, role_id: 1}).then((res)=>{
         reslove(res);
       })
     })

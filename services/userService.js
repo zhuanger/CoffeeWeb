@@ -8,8 +8,8 @@ const UserService = {
     let res = await userDao.query();
     return res
   },
-  async addUser(res){
-    let result = await userDao.addUser(res);
+  async addUser(data){
+    let result = await userDao.addUser(data);
     return result
   }
 }
