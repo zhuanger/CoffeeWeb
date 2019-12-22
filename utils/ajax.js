@@ -12,8 +12,14 @@ module.exports = function(app){
                 next: next
               })
             }else if(type === 'post'){
+              console.log('req', req);
+              console.log('res.body', res.body);
+              let paramsArray = [];
+              for(let key in req.body){
+                paramsArray.push(JSON.parse(key));
+              }
               resolve({
-                params: req.body,
+                params: paramsArray[0],
                 response: res,
                 next: next
               })

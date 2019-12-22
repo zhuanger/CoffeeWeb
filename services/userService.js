@@ -1,19 +1,15 @@
 let userDao = require('../dao/userDao')
-
 const UserService = {
   async loginUser(res){
-    let result = await userDao.select(res)
+    let result = await userDao.login(res);
     return result
   },
   async getUserInfo(){
-    console.log('step one')
-    let res = await userDao.query()
-    console.log('step two')
-
+    let res = await userDao.query();
     return res
   },
   async addUser(res){
-    let result = await userDao.addUser(res)
+    let result = await userDao.addUser(res);
     return result
   }
 }

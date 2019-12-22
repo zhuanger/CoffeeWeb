@@ -35,5 +35,3 @@ const Role = sequelize.define('roles', {
 // }
 
 module.exports = Role
-// createdAt: Sequelize.DATE,
-  // updatedAt: Sequelize.DATE,

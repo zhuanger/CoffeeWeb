@@ -31,7 +31,4 @@ var User = sequelize.define('users', {
 //     { foreignKey: 'user_id'}
 //     )
 // }
-// console.log('user----odel', User);
 module.exports = User
-// createdAt: Sequelize.DATE,
-  // updatedAt: Sequelize.DATE,
