@@ -25,6 +25,21 @@ const goodService = {
     async SelectGoodTypeInfo(res){
         let result = await goodDao.selecttypeinfo(res)
         return result
+    },
+    // 查询最新的饮品
+    async SelectNewGoods(){
+        let result = await goodDao.selectnew()
+        return result
+    },
+    // 查询最热的饮品
+    async SelectHotGoods(){
+        let result = await goodDao.selecthot()
+        return result
+    },
+    // 新建分类
+    async CreateType(res){
+        let result = await goodDao.createType(res)
+        return result
     }
 }
 module.exports = goodService

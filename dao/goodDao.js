@@ -42,6 +42,39 @@ let goodDao = {
                 reslove(result)
             })
         })
+    },
+    createType(res){
+        return new Promise ((reslove, reject)=>{
+            goodtypesModel.create(res.params).then((result)=>{
+                reslove(result)
+            })
+        })
+    },
+    // 查询最新的饮品
+    selectnew(){
+        return new Promise ((reslove, reject)=>{
+            goodsModel.findAll({
+                'order': [
+                    ['add_date', 'DESC']
+                ],
+                limit: 5
+            }).then((res)=>{
+                reslove(res)
+            })
+        })
+    },
+    // 最热的饮品，以卖出的饮品数量来排序，降序
+    selecthot(){
+        return new Promise ((reslove, reject)=>{
+            goodsModel.findAll({
+                'order': [
+                    ['sell_num', 'DESC']
+                ],
+                limit: 5
+            }).then((res)=>{
+                reslove(res)
+            })
+        })
     }
 }
 module.exports = goodDao
