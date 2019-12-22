@@ -12,7 +12,7 @@ module.exports = function (app) {
         }
       })
       res.next() 
-      //   //记得最后加next() https://stackoverflow.com/questions/51535455/express-js-use-async-function-on-requests/51538169#51538169
+      // 记得最后加next() https://stackoverflow.com/questions/51535455/express-js-use-async-function-on-requests/51538169#51538169
     })
   }).catch((err)=>{
     console.log(err)

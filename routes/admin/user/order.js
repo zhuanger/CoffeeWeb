@@ -16,7 +16,6 @@ module.exports = function (app) {
         console.log(err)
     });
     $ajax.get('/orders').then((res)=>{
-        console.log('enter')
         orderService.orderSelect().then((result)=>{
             res.response.send({
                 code: 200,

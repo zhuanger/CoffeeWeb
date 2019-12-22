@@ -1,7 +1,7 @@
 let userDao = require('../dao/userDao')
 const UserService = {
-  async loginUser(res){
-    let result = await userDao.login(res);
+  async loginUser(data){
+    let result = await userDao.login(data);
     return result
   },
   async getUserInfo(){

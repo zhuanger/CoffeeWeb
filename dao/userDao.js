@@ -22,27 +22,24 @@ let userDao = {
     // 登录
     return new Promise((reslove, reject)=>{
       userModel.findOne({
-        where: {username: data.params.username,password: data.params.password}
-      }).then((res)=>{
-
-        console.log('find user res:->', res);
-        
-        // let user = res.dataValues;
-        // console.log('find user info:->', user);
-        // roleModel.findOne({
-        //   where: {id: res.dataValues.role_id}
-        // }).then((res)=>{
-        //   let data = {}
-        //   let user1 = {}
-        //   user1['id'] = user.id
-        //   user1['username'] = user.username
-        //   user1['avatar'] = user.avatar
-        //   data['user'] = user1
-        //   data['role'] = res.dataValues
-        //   console.log(data)
-        //   reslove(data)
-        // })
-        // reslove(res)
+        where: {username: data.username}
+      }).then((res)=>{  
+        if(res === null){
+          // 账号错误
+          reslove({code: 201});
+        }else{
+          let user = res.dataValues;
+          if(user.password !== data.password){
+            // 密码错误
+            reslove({code: 202});
+          }else{
+            let data = {
+              code: 200,
+              roleId: user.role_id
+            };
+            reslove(data);
+          }
+        }
       })
     })
   }

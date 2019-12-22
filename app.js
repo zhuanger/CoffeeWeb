@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var ajax = require('./utils/ajax');
+// import {transformData} from "./utils/utils.js"
+var utils = require("./utils/utils.js");
 var app = express();
 
 
@@ -30,7 +31,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-global.$ajax = ajax(app)
+
+
+global.$transformData = utils.transformData;
+
 
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -38,10 +42,10 @@ app.all('*', function (req, res, next) {
   res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
-
-
 var routes = require('./routes/admin')
-routes(app)
+routes(app);
+
+
 
 
 
