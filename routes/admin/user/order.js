@@ -1,20 +1,20 @@
 let orderService = require(__services + 'orderService')
 let qrcodeService = require(__services + 'qrcodeService')
 module.exports = function (app) {
-    $ajax.post('/orders').then((res)=>{
-      orderService.orderProduce(res).then((result)=>{
-        res.response.send({
-          code: 200,
-          msg: '保存成功',
-          data: {
-              result: result
-          }
-        })
-        res.next() 
+  $ajax.post('/orders').then((res)=>{
+    orderService.orderProduce(res).then((result)=>{
+      res.response.send({
+        code: 200,
+        msg: '保存成功',
+        data: {
+            result: result
+        }
       })
-    }).catch((err)=>{
-        console.log(err)
-    });
+      res.next() 
+    })
+  }).catch((err)=>{
+      console.log(err)
+  });
     $ajax.get('/orders').then((res)=>{
         orderService.orderSelect().then((result)=>{
             res.response.send({
