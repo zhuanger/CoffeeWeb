@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require(__utils + 'dataBase.js')
+var date = new Date()
 const Good = sequelize.define('goods',{
     id:{
         primaryKey: true,
@@ -31,6 +32,7 @@ const Good = sequelize.define('goods',{
     },
     add_date:{
         type: Sequelize.DATE,
+        defaultValue: date.toLocaleString()
     },
     shelf_situation:{
         type: Sequelize.ENUM('True', 'False') ,

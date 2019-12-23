@@ -5,7 +5,7 @@ let goodDao = {
     CreateGood(res){
       return new Promise((reslove, reject)=>{
           //增加一件商品
-        goodsModel.create(res).then((res)=>{
+        goodsModel.create(res.body).then((res)=>{
           reslove(res)
         })
       })
@@ -21,7 +21,8 @@ let goodDao = {
     //通过咖啡id查询咖啡的详细信息
     selectone(res){
         return new Promise ((reslove, reject)=>{
-            goodsModel.findOne({id: res.query.id}).then((result)=>{
+            console.log(res.params.id)
+            goodsModel.findOne({where: {id: res.params.id}}).then((result)=>{
                 reslove(result)
             })
         })
@@ -29,7 +30,7 @@ let goodDao = {
     //饮品分类查询,通过id
     selecttypeinfo(res){
         return new Promise ((reslove, reject)=>{
-            goodsModel.findAll({good_types_id: res.query.good_types_id}).then((result)=>{
+            goodsModel.findAll({where: {good_types_id: res.params.good_types_id}}).then((result)=>{
                 reslove(result)
             })
         })
@@ -44,7 +45,8 @@ let goodDao = {
     },
     createType(res){
         return new Promise ((reslove, reject)=>{
-            goodtypesModel.create(res.params).then((result)=>{
+            console.log(res.body)
+            goodtypesModel.create(res.body).then((result)=>{
                 reslove(result)
             })
         })
