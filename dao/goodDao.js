@@ -11,9 +11,10 @@ let goodDao = {
       })
     },
     //查询所有咖啡
-    selectall(){
+    selectall(res){
       return new Promise((reslove, reject)=>{
-        goodsModel.findAll().then((res)=>{
+        var num = res.params.num
+        goodsModel.findAll({limit: 5,offset: 5*(num-1)}).then((res)=>{
           reslove(res);
         })
       })
