@@ -5,7 +5,7 @@ let userDao = {
   addUser(res){
     return new Promise((reslove, reject)=>{
       //增加一个用户，注册
-      userModel.create({username: res.username, password: res.password, role_id: 1}).then((res)=>{
+      userModel.create({username: res.body.username, password: res.body.password, role_id: 1}).then((res)=>{
         reslove(res);
       })
     })
@@ -22,14 +22,14 @@ let userDao = {
     // 登录
     return new Promise((reslove, reject)=>{
       userModel.findOne({
-        where: {username: data.username}
+        where: {username: data.body.username}
       }).then((res)=>{  
         if(res === null){
           // 账号错误
           reslove({code: 201});
         }else{
           let user = res.dataValues;
-          if(user.password !== data.password){
+          if(user.password !== data.body.password){
             // 密码错误
             reslove({code: 202});
           }else{

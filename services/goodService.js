@@ -7,8 +7,8 @@ const goodService = {
         return result
     },
     // 获取所有饮品的信息
-    async getAllGoods(){
-        let result = await goodDao.selectall()
+    async getAllGoods(res){
+        let result = await goodDao.selectall(res)
         return result
     },
     // 根据id获取一件饮品的信息

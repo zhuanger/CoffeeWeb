@@ -3,7 +3,7 @@ let orderModel = require(__model + 'orderModel.js')
 let orderDao = {
     create(res){
         return new Promise((reslove, reject)=>{
-            orderModel.create(res.params).then((res)=>{
+            orderModel.create(res.body).then((res)=>{
                 reslove(res)
             })
         })
