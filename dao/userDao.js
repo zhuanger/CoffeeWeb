@@ -33,9 +33,13 @@ let userDao = {
             // 密码错误
             reslove({code: 202});
           }else{
+            if(user.avatar === null){
+              user.avatar = $constant.avatar
+            }
             let data = {
               code: 200,
-              roleId: user.role_id
+              roleId: user.role_id,
+              avatar: user.avatar
             };
             reslove(data);
           }

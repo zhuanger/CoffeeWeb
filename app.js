@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 global.$transformData = utils.transformData;
+global.$constant = utils.constant;
 
 
 app.all('*', function (req, res, next) {
