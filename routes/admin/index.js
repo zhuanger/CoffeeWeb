@@ -9,6 +9,7 @@ module.exports = function (app) {
   require('./goods/selectGoodType')(app)
   require('./goods/selectHotGoods')(app)
   require('./goods/selectNewGoods')(app)
+  require('./order/selectUserGoods')(app)
   require('./order/order')(app)
   require('./order/qrcode')(app)
 }

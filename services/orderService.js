@@ -1,5 +1,4 @@
 let orderDao = require('../dao/orderDao')
-let qrcodeDao = require('../dao/qrcodeDao')
 
 const orderService = {
     async orderProduce(res){
@@ -10,6 +9,10 @@ const orderService = {
         let result = await orderDao.select()
         return result
     },
+    async SelectUserGoods(res){
+        let result = await orderDao.selectUserOrder(res)
+        return result
+    }
     // async uploadQRcode(res){
     //     let result = await qrcodeDao.Create(res)
     //     return result
