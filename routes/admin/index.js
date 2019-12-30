@@ -17,4 +17,5 @@ module.exports = function (app) {
   require('./goods/selectNewGoods')(app);
   require('./order/order')(app);
   require('./order/qrcode')(app);
+  require('./order/selectUserGoods')(app);
 }
