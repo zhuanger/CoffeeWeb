@@ -32,7 +32,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 global.$transformData = utils.transformData;
 global.$constant = utils.constant;
 

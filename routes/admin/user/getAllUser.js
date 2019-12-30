@@ -3,7 +3,6 @@ module.exports = function (app) {
   app.post('/getAllUser', function(req, res, next){
     // 统一这种格式 $transformData(req.body)
     userService.getAllUser().then((result)=>{
-      console.log('result', result);
       res.send({
         code: 200,
         msg: '创建成功',

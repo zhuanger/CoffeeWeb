@@ -3,6 +3,9 @@ module.exports = function (app) {
   require('./user/addUser')(app);
   require('./user/getAllUser')(app);
   require('./user/deleteUser')(app);
+  require('./user/getRole')(app);
+  require('./user/setRole')(app);
+  require('./user/updateUserInfo')(app);
   require('./goods/createGood')(app);
   require('./goods/createType')(app);
   require('./goods/gatherGoodType')(app);

@@ -41,13 +41,16 @@ let userDao = {
           }else{
             if(user.avatar === null){
               user.avatar = $constant.avatar
+            }else{
+              user.avatar = Buffer.from(user.avatar).toString('base64');
             }
             let data = {
               code: 200,
               role_id: user.role_id,
-              avatar: user.avatar
+              avatar: user.avatar,
+              id: res.id
             };
-            reslove(data);
+            reslove(data);       
           }
         }
       })
@@ -65,9 +68,42 @@ let userDao = {
         reslove(res);
       })
     })
-  }
+  },
 
   //修改用户权限 todo
+
+  //获取角色
+  getRole(){
+    return new Promise((reslove)=>{
+      roleModel.findAll({raw: true}).then((res)=>{
+        reslove(res);
+      })
+    })
+  },
+  setRole(data){
+    return new Promise((reslove)=>{
+      userModel.update({role_id: data.role_id},{
+        where: {
+          id: data.id
+        }
+      }).then((res)=>{
+        reslove(res);
+      })
+    })
+  },
+
+  //更新个人信息
+  updateUserInfo(data){
+    return new Promise((reslove, reject)=>{
+      userModel.update({username: data.username, avatar: data.avatar},{
+        where: {
+          id: data.id
+        }
+      }).then((res)=>{
+        reslove(res);
+      })
+    })
+  }
 }
 
 module.exports = userDao

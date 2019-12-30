@@ -22,7 +22,6 @@ let goodDao = {
     //通过咖啡id查询咖啡的详细信息
     selectone(res){
         return new Promise ((reslove, reject)=>{
-            console.log(res.params.id)
             goodsModel.findOne({where: {id: res.params.id}}).then((result)=>{
                 reslove(result)
             })
@@ -46,7 +45,6 @@ let goodDao = {
     },
     createType(res){
         return new Promise ((reslove, reject)=>{
-            console.log(res.body)
             goodtypesModel.create(res.body).then((result)=>{
                 reslove(result)
             })

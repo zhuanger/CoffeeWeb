@@ -17,5 +17,17 @@ const UserService = {
     let result = await userDao.deleteUser(data);
     return result
   },
+  async getRole(){
+    let result = await userDao.getRole();
+    return result
+  },
+  async setRole(data){
+    let result = await userDao.setRole(data);
+    return result
+  },
+  async updateUserInfo(data){
+    let result = await userDao.updateUserInfo(data);
+    return result
+  }
 }
 module.exports = UserService
