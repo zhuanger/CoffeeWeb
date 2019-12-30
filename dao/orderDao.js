@@ -20,7 +20,13 @@ let orderDao = {
     // 搜索店员自己创建的订单
     selectUserOrder(data){
         return new Promise((reslove,reject)=>{
-            orderModel.findAll({where:{user_id: data.id}}).then((res)=>{
+            var page = data.page
+            orderModel.findAll(
+                {
+                    where:{user_id: data.user_id},
+                    limit: 5,
+                    offset: 5*(page-1)
+                }).then((res)=>{
               reslove(res)
             })
         })
