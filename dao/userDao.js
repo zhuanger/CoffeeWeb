@@ -19,13 +19,13 @@ let userDao = {
   },
 
   //查询所有用户 todo 这查询所用要做分页查询 
-  query(){
+  query(data){
     return new Promise((reslove, reject)=>{
+      var num = data.page
+      console.log(num)
       userModel.findAll({
-        'order': [
-          ['id', 'DESC']
-        ],
         limit: 5,
+        offset: 5*(num-1),
         raw: true
       }).then((res)=>{
         reslove(res);
@@ -36,7 +36,9 @@ let userDao = {
   // 登录
   login(data){
     return new Promise((reslove, reject)=>{
+      console.log('--',data.body);
       let _data = $transformData(data.body);
+      console.log('0.0==>',_data.username)
       userModel.findOne({
         where: {username:_data.username}
       }).then((res)=>{  
