@@ -12,10 +12,6 @@ var User = sequelize.define('users', {
     // unique: true, 
     allowNull: false
   },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   avatar: {
     type: Sequelize.BLOB('medium')
   },

@@ -28,6 +28,10 @@ const UserService = {
   async updateUserInfo(data){
     let result = await userDao.updateUserInfo(data);
     return result
+  },
+  async updateRole(data){
+    let result = await userDao.updateRole(data);
+    return result
   }
 }
 module.exports = UserService

@@ -6,8 +6,14 @@ let userDao = {
   addUser(data){
     return new Promise((reslove, reject)=>{
       // todo 做多一个查询是否存在此店员 ..这里要时间最新的是第一条 todo 
-      userModel.create({username: data.username, password: data.password, role_id: 1}).then((res)=>{
-        reslove(res);
+      userModel.findOne({where: {username: data.username}}).then((res)=>{
+        if(res !== null){
+          reslove({code: 201});
+        }else{
+          userModel.create({username: data.username, password: data.password, role_id: 1}).then((res)=>{
+              reslove(res);
+            })
+        }
       })
     })
   },
@@ -16,6 +22,10 @@ let userDao = {
   query(){
     return new Promise((reslove, reject)=>{
       userModel.findAll({
+        'order': [
+          ['id', 'DESC']
+        ],
+        limit: 5,
         raw: true
       }).then((res)=>{
         reslove(res);
@@ -71,7 +81,23 @@ let userDao = {
   },
 
   //修改用户权限 todo
-
+  updateRole(data){
+    return new Promise((reslove)=>{
+      userModel.findOne({where:{username: data.username}}).then((res)=>{
+        if(res === null){
+          reslove({code:201})
+        }else{
+          userModel.update({role_id: data.role_id}, {where: {username: data.username}}).then((res)=>{
+              reslove(res);
+          })
+        }
+      })
+    })
+},
+      // roleModel.update({role_id: data.role_id}, {where: {username: data.username}}).then((res)=>{
+      //   reslove(res);
+      // })
+  
   //获取角色
   getRole(){
     return new Promise((reslove)=>{
