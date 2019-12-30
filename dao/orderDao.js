@@ -16,6 +16,15 @@ let orderDao = {
                 reslove(res)
             })
         })
+    },
+    // 搜索店员自己创建的订单
+    selectUserOrder(res){
+        console.log(res.params.user_id)
+        return new Promise((reslove,reject)=>{
+            orderModel.findAll({where:{user_id: res.params.user_id}}).then((res)=>{
+                reslove(res)
+            })
+        })
     }
 }
 module.exports = orderDao
