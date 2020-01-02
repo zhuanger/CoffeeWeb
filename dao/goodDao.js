@@ -14,8 +14,20 @@ let goodDao = {
     selectall(res){
       return new Promise((reslove, reject)=>{
         var num = res.params.num
-        goodsModel.findAll({limit: 5,offset: 5*(num-1)}).then((res)=>{
-          reslove(res);
+        goodsModel.findAll({
+            limit: 5,
+            offset: 5*(num-1),
+            'order': [
+                ['id', 'DESC']
+            ]
+        }).then((res)=>{
+            var result = {}
+            result['pageinfo'] = res
+            goodsModel.findAndCountAll().then((res)=>{
+                var pagenum = Math.ceil(res['count'] / 5)
+                result['pagenum'] = pagenum
+                reslove(result);
+            })
         })
       })
     },
