@@ -1,7 +1,6 @@
 let userService = require(__services + 'userService')
 module.exports = function (app) {
   app.post('/login', function(req, res, next){
-    // let data = $transformData(req.body)
     userService.loginUser(req).then((result)=>{
       //统一返回格式
       let _msg = {

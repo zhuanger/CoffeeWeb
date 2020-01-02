@@ -2,10 +2,11 @@ let goodsModel = require(__model + 'goodsModel.js')
 let goodtypesModel = require(__model + 'goodtypesModel.js')
 
 let goodDao = {
-    CreateGood(res){
+    CreateGood(data){
       return new Promise((reslove, reject)=>{
           //增加一件商品
-        goodsModel.create(res.body).then((res)=>{
+          console.log('req', data);
+        goodsModel.create(data).then((res)=>{
           reslove(res)
         })
       })
@@ -13,8 +14,9 @@ let goodDao = {
     //查询所有咖啡
     selectall(res){
       return new Promise((reslove, reject)=>{
-        var num = res.params.num
-        goodsModel.findAll({limit: 5,offset: 5*(num-1)}).then((res)=>{
+        var num = res.body.page;
+        goodsModel.findAll({limit: 5,offset: 5*(num-1)}, {raw: true}).then((res)=>{
+          console.log('res', res.length);
           reslove(res);
         })
       })

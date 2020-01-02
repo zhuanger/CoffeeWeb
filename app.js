@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-// import {transformData} from "./utils/utils.js"
 var utils = require("./utils/utils.js");
 var app = express();
 
@@ -32,7 +31,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-global.$transformData = utils.transformData;
 global.$constant = utils.constant;
 
 

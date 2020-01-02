@@ -1,7 +1,7 @@
 let goodService = require(__services + 'goodService');
 module.exports = function (app) {
   //获取所有饮品
-  app.get('/goods/:num', function(req, res, next){
+  app.post('/allGoods', function(req, res, next){
     goodService.getAllGoods(req).then((result)=>{
       res.send({
         code:200,

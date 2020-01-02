@@ -4,6 +4,7 @@ let roleModel = require(__model + 'roleModel.js')
 let userDao = {
   //增加一个用户，注册 
   addUser(data){
+    console.log(data);
     return new Promise((reslove, reject)=>{
       // todo 做多一个查询是否存在此店员 ..这里要时间最新的是第一条 todo 
       userModel.findOne({where: {username: data.username}}).then((res)=>{
@@ -36,7 +37,7 @@ let userDao = {
   // 登录
   login(data){
     return new Promise((reslove, reject)=>{
-      let _data = $transformData(data.body);
+      let _data = data.body;
       userModel.findOne({
         where: {username:_data.username}
       }).then((res)=>{  
@@ -44,7 +45,10 @@ let userDao = {
           // 账号错误
           reslove({code: 201});
         }else{
+          console.log('dao----', res );
+
           let user = res.dataValues;
+          console.log('dao----', user.password );
           if(user.password !== _data.password){
             // 密码错误
             reslove({code: 202});
