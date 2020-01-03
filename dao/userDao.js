@@ -20,13 +20,13 @@ let userDao = {
   },
 
   //查询所有用户 todo 这查询所用要做分页查询 
-  query(){
+  query(data){
     return new Promise((reslove, reject)=>{
+      var num = data.page
+      console.log(num)
       userModel.findAll({
-        'order': [
-          ['id', 'DESC']
-        ],
         limit: 5,
+        offset: 5*(num-1),
         raw: true
       }).then((res)=>{
         reslove(res);

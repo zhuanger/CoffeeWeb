@@ -4,8 +4,8 @@ const UserService = {
     let result = await userDao.login(data);
     return result
   },
-  async getAllUser(){
-    let res = await userDao.query();
+  async getAllUser(data){
+    let res = await userDao.query(data);
     return res
   },
   async addUser(data){

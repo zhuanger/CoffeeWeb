@@ -14,10 +14,21 @@ let goodDao = {
     //查询所有咖啡
     selectall(res){
       return new Promise((reslove, reject)=>{
-        var num = res.body.page;
-        goodsModel.findAll({limit: 5,offset: 5*(num-1)}, {raw: true}).then((res)=>{
-          console.log('res', res.length);
-          reslove(res);
+        var num = res.params.num
+        goodsModel.findAll({
+            limit: 5,
+            offset: 5*(num-1),
+            'order': [
+                ['id', 'DESC']
+            ]
+        }).then((res)=>{
+            var result = {}
+            result['pageinfo'] = res
+            goodsModel.findAndCountAll().then((res)=>{
+                var pagenum = Math.ceil(res['count'] / 5)
+                result['pagenum'] = pagenum
+                reslove(result);
+            })
         })
       })
     },
