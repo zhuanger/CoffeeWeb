@@ -59,7 +59,7 @@ let goodDao = {
                 'order': [
                     ['add_date', 'DESC']
                 ],
-                limit: 5
+                limit: 6
             }).then((res)=>{
                 reslove(res)
             })
@@ -72,7 +72,7 @@ let goodDao = {
                 'order': [
                     ['sell_num', 'DESC']
                 ],
-                limit: 5
+                limit: 6
             }).then((res)=>{
                 reslove(res)
             })
