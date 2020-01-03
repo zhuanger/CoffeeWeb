@@ -6,9 +6,7 @@ module.exports = function (app) {
       res.send({
         code:200,
         msg: '查询成功',
-        data:{
-          result: result
-        }
+        data: result
       })
     })
   })

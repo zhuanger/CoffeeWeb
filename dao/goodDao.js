@@ -14,7 +14,7 @@ let goodDao = {
     //查询所有咖啡
     selectall(res){
       return new Promise((reslove, reject)=>{
-        var num = res.params.num
+        var num = res.body.page
         goodsModel.findAll({
             limit: 5,
             offset: 5*(num-1),
