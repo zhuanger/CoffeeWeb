@@ -1,14 +1,33 @@
 let goodsModel = require(__model + 'goodsModel.js')
 let goodtypesModel = require(__model + 'goodtypesModel.js')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 let goodDao = {
+    //增加一件饮品
     CreateGood(res){
       return new Promise((reslove, reject)=>{
-          //增加一件商品
         goodsModel.create(res.body).then((res)=>{
           reslove(res)
         })
       })
+    },
+    // 删除一件饮品
+    DeleteGood(res){
+        return new Promise((reslove, reject)=>{
+            console.log(res.good_id)
+            goodsModel.destroy({where:{id:res.good_id}}).then((result)=>{
+                reslove(result)
+            })
+        })
+    },
+    // 更新一件饮品
+    UpdateGood(data){
+        return new Promise((reslove, reject)=>{
+            goodsModel.update(data).then((res)=>{
+                reslove(res)
+            })
+        })
     },
     //查询所有咖啡
     selectall(res){
@@ -55,6 +74,7 @@ let goodDao = {
             })
         })
     },
+    // 新建分类类型
     createType(res){
         return new Promise ((reslove, reject)=>{
             goodtypesModel.create(res.body).then((result)=>{
@@ -63,26 +83,57 @@ let goodDao = {
         })
     },
     // 查询最新的饮品
-    selectnew(){
+    selectnew(res){
         return new Promise ((reslove, reject)=>{
+            var num = res.params.num
             goodsModel.findAll({
                 'order': [
                     ['add_date', 'DESC']
                 ],
-                limit: 5
+                limit: 5,
+                offset: 5*(num-1),
             }).then((res)=>{
-                reslove(res)
+                var result = {}
+                result['newinfo'] = res
+                goodsModel.findAndCountAll().then((res)=>{
+                    result['count'] = res.count
+                    result['pagenum'] = Math.ceil(res['count'] / 5)
+                    reslove(result)
+                })
             })
         })
     },
     // 最热的饮品，以卖出的饮品数量来排序，降序
-    selecthot(){
+    selecthot(res){
         return new Promise ((reslove, reject)=>{
+            var num = res.params.num
             goodsModel.findAll({
                 'order': [
                     ['sell_num', 'DESC']
                 ],
-                limit: 5
+                limit: 5,
+                offset: 5*(num-1),
+            }).then((res)=>{
+                var result = {}
+                result['hotinfo'] = res
+                goodsModel.findAndCountAll().then((res)=>{
+                    result['count'] = res.count
+                    result['pagenum'] = Math.ceil(res['count'] / 5)
+                    reslove(result)
+                })
+            })
+        })
+    },
+    // 模糊查询饮品
+    SelectGoodByVague(res){
+        return new Promise ((reslove, reject)=>{
+            var product = res.body.product
+            goodsModel.findAll({
+                where: {
+                    product: {
+                        [Op.like]:'%' +product + '%'
+                    }
+                }
             }).then((res)=>{
                 reslove(res)
             })

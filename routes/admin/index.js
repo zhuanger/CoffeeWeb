@@ -8,6 +8,7 @@ module.exports = function (app) {
   require('./user/updateUserInfo')(app);
   require('./user/updateRole')(app);
   require('./goods/createGood')(app);
+  require('./goods/deleteGood')(app);
   require('./goods/createType')(app);
   require('./goods/gatherGoodType')(app);
   require('./goods/getAllGood')(app);
@@ -15,6 +16,7 @@ module.exports = function (app) {
   require('./goods/selectGoodType')(app);
   require('./goods/selectHotGoods')(app);
   require('./goods/selectNewGoods')(app);
+  require('./goods/selectGoodByVague')(app);
   require('./order/order')(app);
   require('./order/qrcode')(app);
   require('./order/selectUserGoods')(app);
