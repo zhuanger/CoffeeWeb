@@ -21,9 +21,9 @@ let userDao = {
 
   //查询所有用户 todo 这查询所用要做分页查询 
   query(data){
+    console.log(data);
     return new Promise((reslove, reject)=>{
-      var num = data.page
-      console.log(num)
+      var num = data.page || 1;
       userModel.findAll({
         limit: 5,
         offset: 5*(num-1),
@@ -45,10 +45,7 @@ let userDao = {
           // 账号错误
           reslove({code: 201});
         }else{
-          console.log('dao----', res );
-
           let user = res.dataValues;
-          console.log('dao----', user.password );
           if(user.password !== _data.password){
             // 密码错误
             reslove({code: 202});
