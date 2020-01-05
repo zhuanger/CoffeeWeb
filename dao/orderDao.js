@@ -19,17 +19,22 @@ let orderDao = {
     },
     // 搜索店员自己创建的订单
     selectUserOrder(data){
-        return new Promise((reslove,reject)=>{
-            var page = data.page
-            orderModel.findAll(
-                {
-                    where:{user_id: data.user_id},
-                    limit: 5,
-                    offset: 5*(page-1)
-                }).then((res)=>{
-              reslove(res)
+      return new Promise((reslove,reject)=>{
+        var page = data.page || 1;
+        orderModel.findAll(
+          {
+              where:{user_id: data.user_id},
+              limit: 5,
+              offset: 5*(page-1)
+          }).then((res)=>{
+            let result = {}
+            result['pageinfo'] = res;
+            orderModel.findAndCountAll().then((resAll)=>{
+              result['pagenum'] = Math.ceil(resAll['count'] / 5);
+              reslove(result);
             })
         })
+      })
     }
 }
 module.exports = orderDao

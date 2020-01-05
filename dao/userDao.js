@@ -21,7 +21,6 @@ let userDao = {
 
   //查询所有用户 todo 这查询所用要做分页查询 
   query(data){
-    console.log(data);
     return new Promise((reslove, reject)=>{
       var num = data.page || 1;
       userModel.findAll({
@@ -29,7 +28,12 @@ let userDao = {
         offset: 5*(num-1),
         raw: true
       }).then((res)=>{
-        reslove(res);
+        let result = {}
+        result['pageinfo'] = res;
+        userModel.findAndCountAll().then((resAll)=>{
+          result['pagenum'] = Math.ceil(resAll['count'] / 5);
+          reslove(result);
+        })
       })
     })
   },
