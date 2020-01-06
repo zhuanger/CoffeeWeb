@@ -2,9 +2,11 @@ let goodDao = require('../dao/goodDao')
 
 const goodService = {
     // 创建一杯信息的饮品
-    async CreateGood(res){
-        let result = await goodDao.CreateGood(res)
-        return result
+    async CreateGood(data){
+      let _data = data.body;
+      _data.sell_num = 0;
+      let result = await goodDao.CreateGood(_data);
+      return result
     },
     async DeleteGood(res){
         let result = await goodDao.DeleteGood(res)

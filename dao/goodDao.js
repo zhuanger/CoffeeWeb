@@ -32,7 +32,7 @@ let goodDao = {
     //查询所有咖啡
     selectall(res){
       return new Promise((reslove, reject)=>{
-        var num = res.params.num
+        var num = res.body.page
         goodsModel.findAll({
             limit: 5,
             offset: 5*(num-1),
@@ -59,12 +59,21 @@ let goodDao = {
         })
     },
     //饮品分类查询,通过id
-    selecttypeinfo(res){
-        return new Promise ((reslove, reject)=>{
-            goodsModel.findAll({where: {good_types_id: res.params.good_types_id}}).then((result)=>{
-                reslove(result)
-            })
+    selecttypeinfo(data){
+      return new Promise ((reslove, reject)=>{
+        let page = data.page || 1;
+        goodsModel.findAll({where: {good_types_id: data.good_types_id}
+        ,limit: 5,
+        offset: 5*(page-1)
+      }).then((res)=>{
+          let result = {}
+          result['pageinfo'] = res;
+          goodsModel.findAndCountAll().then((resAll)=>{
+            result['pagenum'] = Math.ceil(resAll['count'] / 5);
+            reslove(result);
+          })         
         })
+      })
     },
     // 获取所有饮品分类
     selecttype(res){

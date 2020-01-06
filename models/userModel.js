@@ -17,7 +17,11 @@ var User = sequelize.define('users', {
   },
   role_id: {
     type: Number
-  }
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
 },{
   // 时间戳
   timestamps: false  // 解决findall时候出现unknown createdAt
