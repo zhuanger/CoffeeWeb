@@ -5,7 +5,6 @@ let goodDao = {
     CreateGood(data){
       return new Promise((reslove, reject)=>{
           //增加一件商品
-          console.log('req', data);
         goodsModel.create(data).then((res)=>{
           reslove(res)
         })
