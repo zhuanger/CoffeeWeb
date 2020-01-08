@@ -8,6 +8,10 @@ const goodService = {
       let result = await goodDao.CreateGood(_data);
       return result
     },
+    async DeleteGood(res){
+        let result = await goodDao.DeleteGood(res)
+        return result
+    },
     // 获取所有饮品的信息
     async getAllGoods(res){
         let result = await goodDao.selectall(res)
@@ -29,18 +33,22 @@ const goodService = {
         return result
     },
     // 查询最新的饮品
-    async SelectNewGoods(){
-        let result = await goodDao.selectnew()
+    async SelectNewGoods(res){
+        let result = await goodDao.selectnew(res)
         return result
     },
     // 查询最热的饮品
-    async SelectHotGoods(){
-        let result = await goodDao.selecthot()
+    async SelectHotGoods(res){
+        let result = await goodDao.selecthot(res)
         return result
     },
     // 新建分类
     async CreateType(res){
         let result = await goodDao.createType(res)
+        return result
+    },
+    async SelectGoodByVague(res){
+        let result = await goodDao.SelectGoodByVague(res)
         return result
     }
 }

@@ -1,5 +1,7 @@
 let userModel = require(__model + 'userModel.js')
 let roleModel = require(__model + 'roleModel.js')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 let userDao = {
   //增加一个用户，注册 
@@ -19,11 +21,18 @@ let userDao = {
     })
   },
 
-  //查询所有用户 todo 这查询所用要做分页查询 
+  //查询所有用户 todo 这查询所用要做分页查询,需要传自身user_id,查询结果不包含自身 
   query(data){
     return new Promise((reslove, reject)=>{
-      var num = data.page || 1;
+      var num = data.page
+      console.log(num)
+      console.log(data.user_id)
       userModel.findAll({
+        where: {
+          'id' :{
+            [Op.ne] : data.user_id
+          }
+        },
         limit: 5,
         offset: 5*(num-1),
         raw: true
