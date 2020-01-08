@@ -93,15 +93,16 @@ let goodDao = {
         })
     },
     // 查询最新的饮品
-    selectnew(res){
+    selectnew(data){
         return new Promise ((reslove, reject)=>{
-            var num = res.params.num
+            var num = data.page || 1;
+            var pageSize =  Number(data.pageSize) || 5;
             goodsModel.findAll({
                 'order': [
                     ['add_date', 'DESC']
                 ],
-                limit: 5,
-                offset: 5*(num-1),
+                limit: pageSize,
+                offset: pageSize*(num-1),
             }).then((res)=>{
                 var result = {}
                 result['newinfo'] = res
@@ -114,15 +115,16 @@ let goodDao = {
         })
     },
     // 最热的饮品，以卖出的饮品数量来排序，降序
-    selecthot(res){
+    selecthot(data){
         return new Promise ((reslove, reject)=>{
-            var num = res.params.num
+            var num = data.page || 1;
+            var pageSize =  Number(data.pageSize) || 5;
             goodsModel.findAll({
                 'order': [
                     ['sell_num', 'DESC']
                 ],
-                limit: 5,
-                offset: 5*(num-1),
+                limit: pageSize,
+                offset: pageSize * (num-1),
             }).then((res)=>{
                 var result = {}
                 result['hotinfo'] = res
@@ -145,7 +147,7 @@ let goodDao = {
                     }
                 }
             }).then((res)=>{
-                reslove(res)
+                reslove(res);
             })
         })
     }

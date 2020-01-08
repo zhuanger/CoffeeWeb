@@ -34,12 +34,12 @@ const goodService = {
     },
     // 查询最新的饮品
     async SelectNewGoods(res){
-        let result = await goodDao.selectnew(res)
+        let result = await goodDao.selectnew(res.body);
         return result
     },
     // 查询最热的饮品
     async SelectHotGoods(res){
-        let result = await goodDao.selecthot(res)
+        let result = await goodDao.selecthot(res.body);
         return result
     },
     // 新建分类
