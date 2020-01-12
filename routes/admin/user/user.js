@@ -5,8 +5,8 @@ module.exports = function (app) {
       //统一返回格式
       let _msg = {
         200: '查询成功',
-        201: '输入的账号有误',
-        202: '密码错误'
+        201: '订单超时',
+        // 202: '密码错误'
       }
       res.send({
         code: result.code,

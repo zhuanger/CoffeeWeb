@@ -20,4 +20,5 @@ module.exports = function (app) {
   require('./order/order')(app);
   require('./order/qrcode')(app);
   require('./order/selectUserGoods')(app);
+  require('./order/updatePayStatus')(app);
 }

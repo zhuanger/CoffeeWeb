@@ -12,6 +12,10 @@ const orderService = {
     async SelectUserGoods(res){
         let result = await orderDao.selectUserOrder(res)
         return result
+    },
+    async UpdatePayStatus(res){
+        let result = await orderDao.UpdatePayStatus(res)
+        return result
     }
     // async uploadQRcode(res){
     //     let result = await qrcodeDao.Create(res)

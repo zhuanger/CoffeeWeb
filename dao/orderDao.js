@@ -35,6 +35,34 @@ let orderDao = {
             })
         })
       })
+    },
+    UpdatePayStatus(res){
+        return new Promise((reslove,reject)=>{
+            var now = new Date()
+            var order_id = res.body.order_id
+            orderModel.findOne(
+                {where: {id: order_id}}
+            ).then((res)=>{
+                var result = {}
+                var overtime = new Date(res.dataValues.overtime)
+                if(now<overtime){
+                    console.log('enter1')
+                    result['code'] = 201
+                    reslove(result)
+                }
+                else{
+                    console.log('enter2')
+                    orderModel.update(
+                        {whether_pay: 'True'},
+                        {where:{id: order_id}}
+                    ).then((res)=>{
+                        result['code'] = 200
+                        reslove(result)
+                    })
+                }
+                reslove(res)
+            })
+        })
     }
 }
 module.exports = orderDao

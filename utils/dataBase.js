@@ -10,6 +10,10 @@ const sequelize = new Sequelize('coffee', 'root', '123456', {
     acquire: 30000,
     idle: 10000
   },
+  dialectOptions: {
+    dateStrings: true,
+    typeCast: true
+  }
 });
 module.exports = sequelize
 // module.exports = function(){
