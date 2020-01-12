@@ -45,22 +45,26 @@ let orderDao = {
             ).then((res)=>{
                 var result = {}
                 var overtime = new Date(res.dataValues.overtime)
-                if(now<overtime){
-                    console.log('enter1')
+                if(res.dataValues.whether_pay === 'True'){
+                    result['code'] = 202
+                    result['info'] = res
+                    reslove(result)
+                }
+                else if(now>overtime){
                     result['code'] = 201
+                    result['info'] = res
                     reslove(result)
                 }
                 else{
-                    console.log('enter2')
                     orderModel.update(
                         {whether_pay: 'True'},
                         {where:{id: order_id}}
                     ).then((res)=>{
                         result['code'] = 200
+                        result['info'] = res
                         reslove(result)
                     })
                 }
-                reslove(res)
             })
         })
     }

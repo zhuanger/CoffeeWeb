@@ -6,7 +6,7 @@ module.exports = function (app) {
       let _msg = {
         200: '付款成功',
         201: '订单超时，付款失败',
-        // 202: '密码错误'
+        202: '订单已支付，请勿重复支付'
       }
       res.send({
         code: result.code,
