@@ -36,6 +36,8 @@ let orderDao = {
         })
       })
     },
+    // overtime字段在订单创建时就生成，即订单超时时间为30分钟，超时订单不能再进行付款操作
+    // 已付款的订单不能再次进行付款
     UpdatePayStatus(res){
         return new Promise((reslove,reject)=>{
             var now = new Date()
