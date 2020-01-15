@@ -2,7 +2,6 @@ let goodService = require(__services + 'goodService');
 module.exports = function (app) {
     // 删除一杯饮品
     app.post('/deletegoods', function(req, res, next){
-        console.log('enter')
         goodService.DeleteGood(req.body).then((result)=>{
           //统一返回格式
             res.send({

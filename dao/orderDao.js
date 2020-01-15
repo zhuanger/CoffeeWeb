@@ -62,7 +62,6 @@ let orderDao = {
                         {whether_pay: 'True'},
                         {where:{id: order_id}}
                     ).then((res)=>{
-                        console.log(res)
                         result['code'] = 200
                         reslove(result)
                     })
