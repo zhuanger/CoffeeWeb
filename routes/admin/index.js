@@ -17,6 +17,7 @@ module.exports = function (app) {
   require('./goods/selectHotGoods')(app);
   require('./goods/selectNewGoods')(app);
   require('./goods/selectGoodByVague')(app);
+  require('./goods/updateGood')(app);
   require('./order/order')(app);
   require('./order/qrcode')(app);
   require('./order/selectUserGoods')(app);

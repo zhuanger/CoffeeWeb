@@ -3,6 +3,7 @@ let goodDao = require('../dao/goodDao')
 const goodService = {
     // 创建一杯信息的饮品
     async CreateGood(data){
+      console.log('data', data.body);
       let _data = data.body;
       _data.sell_num = 0;
       let result = await goodDao.CreateGood(_data);
@@ -50,6 +51,11 @@ const goodService = {
     async SelectGoodByVague(res){
         let result = await goodDao.SelectGoodByVague(res)
         return result
-    }
+    },
+    async updateGood(res){
+      let result = await goodDao.UpdateGood(res.body)
+      return result
+  },
+
 }
 module.exports = goodService

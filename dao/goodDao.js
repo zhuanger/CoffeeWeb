@@ -156,8 +156,14 @@ let goodDao = {
             }).then((res)=>{
                 var result = {}
                 result['info'] = res
-                console.log('res,  res', res)
-                goodsModel.findAndCountAll().then((res)=>{
+                console.log(res)
+                goodsModel.findAndCountAll({
+                    where: {
+                        product: {
+                            [Op.like]:'%' +product + '%'
+                        }
+                    }
+                }).then((res)=>{
                     result['count'] = res.count
                     result['pagenum'] = Math.ceil(res['count'] / 5)
                     reslove(result)
