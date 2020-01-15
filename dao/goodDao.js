@@ -31,9 +31,9 @@ let goodDao = {
         })
     },
     //查询所有咖啡
-    selectall(res){
+    selectall(data){
       return new Promise((reslove, reject)=>{
-        var num = res.body.page
+        var num = data.body.page
         goodsModel.findAll({
             limit: 5,
             offset: 5*(num-1),
@@ -42,9 +42,14 @@ let goodDao = {
             ]
         }).then((res)=>{
             var result = {}
-            result['pageinfo'] = res
+            result['pageinfo'] = res;
             goodsModel.findAndCountAll().then((res)=>{
-                var pagenum = Math.ceil(res['count'] / 5)
+                var pagenum = Math.ceil(res['count'] / 5);
+                result['pageinfo'].forEach(element => {
+                  if(element.dataValues.image){
+                    element.dataValues.image = Buffer.from(element.dataValues.image).toString('base64');
+                  }
+                });
                 result['pagenum'] = pagenum
                 reslove(result);
             })

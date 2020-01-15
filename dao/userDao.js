@@ -25,8 +25,6 @@ let userDao = {
   query(data){
     return new Promise((reslove, reject)=>{
       var num = data.page
-      console.log(num)
-      console.log(data.user_id)
       userModel.findAll({
         where: {
           'id' :{
@@ -38,6 +36,7 @@ let userDao = {
         raw: true
       }).then((res)=>{
         let result = {}
+        console.log('res', res);
         result['pageinfo'] = res;
         userModel.findAndCountAll().then((resAll)=>{
           result['pagenum'] = Math.ceil(resAll['count'] / 5);
