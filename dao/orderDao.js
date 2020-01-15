@@ -35,6 +35,40 @@ let orderDao = {
             })
         })
       })
+    },
+    // overtime字段在订单创建时就生成，即订单超时时间为30分钟，超时订单不能再进行付款操作
+    // 已付款的订单不能再次进行付款
+    UpdatePayStatus(res){
+        return new Promise((reslove,reject)=>{
+            var now = new Date()
+            var order_id = res.body.order_id
+            orderModel.findOne(
+                {where: {id: order_id}}
+            ).then((res)=>{
+                var result = {}
+                var overtime = new Date(res.dataValues.overtime)
+                if(res.dataValues.whether_pay === 'True'){
+                    result['code'] = 202
+                    result['info'] = res
+                    reslove(result)
+                }
+                else if(now>overtime){
+                    result['code'] = 201
+                    result['info'] = res
+                    reslove(result)
+                }
+                else{
+                    orderModel.update(
+                        {whether_pay: 'True'},
+                        {where:{id: order_id}}
+                    ).then((res)=>{
+                        console.log(res)
+                        result['code'] = 200
+                        reslove(result)
+                    })
+                }
+            })
+        })
     }
 }
 module.exports = orderDao

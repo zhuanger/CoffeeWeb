@@ -7,7 +7,6 @@ let goodDao = {
     //增加一件饮品
     CreateGood(res){
       return new Promise((reslove, reject)=>{
-          //增加一件商品
         goodsModel.create(data).then((res)=>{
           reslove(res)
         })
@@ -145,14 +144,25 @@ let goodDao = {
     SelectGoodByVague(res){
         return new Promise ((reslove, reject)=>{
             var product = res.body.product
+            var num = res.body.num || 1;
+            var pageSize =  Number(res.body.pageSize) || 5;
             goodsModel.findAll({
                 where: {
                     product: {
                         [Op.like]:'%' +product + '%'
                     }
-                }
+                },
+                limit: pageSize,
+                offset: pageSize * (num-1),
             }).then((res)=>{
-                reslove(res);
+                var result = {}
+                result['info'] = res
+                console.log(res)
+                goodsModel.findAndCountAll().then((res)=>{
+                    result['count'] = res.count
+                    result['pagenum'] = Math.ceil(res['count'] / 5)
+                    reslove(result)
+                })
             })
         })
     }
