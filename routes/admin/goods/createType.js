@@ -5,7 +5,7 @@ module.exports = function(app){
         goodService.CreateType(req).then((result)=>{
             res.send({
                 code: 200,
-                msg: '新建成功',
+                msg: '创建成功',
                 data:{
                     result: result
                 }

@@ -6,7 +6,7 @@ module.exports = function(app){
         goodService.updateGood(req).then((result)=>{
           res.send({
             code: 200,
-            msg: '查询成功',
+            msg: '更新成功',
             data: result
           })
         })

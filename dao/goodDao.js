@@ -23,7 +23,7 @@ let goodDao = {
     // 更新一件饮品
     UpdateGood(data){
         return new Promise((reslove, reject)=>{
-            goodsModel.update({id: data.id}).then((res)=>{
+            goodsModel.update(data,{where: {id: data.id}}).then((res)=>{
                 reslove(res)
             })
         })
