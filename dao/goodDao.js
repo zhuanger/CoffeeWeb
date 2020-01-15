@@ -5,7 +5,7 @@ const Op = Sequelize.Op;
 
 let goodDao = {
     //增加一件饮品
-    CreateGood(res){
+    CreateGood(data){
       return new Promise((reslove, reject)=>{
         goodsModel.create(data).then((res)=>{
           reslove(res)
@@ -15,7 +15,6 @@ let goodDao = {
     // 删除一件饮品
     DeleteGood(res){
         return new Promise((reslove, reject)=>{
-            console.log(res.good_id)
             goodsModel.destroy({where:{id:res.good_id}}).then((result)=>{
                 reslove(result)
             })
@@ -24,7 +23,7 @@ let goodDao = {
     // 更新一件饮品
     UpdateGood(data){
         return new Promise((reslove, reject)=>{
-            goodsModel.update(data).then((res)=>{
+            goodsModel.update({id: data.id}).then((res)=>{
                 reslove(res)
             })
         })
@@ -71,7 +70,7 @@ let goodDao = {
         ,limit: 5,
         offset: 5*(page-1)
       }).then((res)=>{
-          let result = {}
+          let result = {};
           result['pageinfo'] = res;
           goodsModel.findAndCountAll().then((resAll)=>{
             result['pagenum'] = Math.ceil(resAll['count'] / 5);
@@ -157,7 +156,7 @@ let goodDao = {
             }).then((res)=>{
                 var result = {}
                 result['info'] = res
-                console.log(res)
+                console.log('res,  res', res)
                 goodsModel.findAndCountAll().then((res)=>{
                     result['count'] = res.count
                     result['pagenum'] = Math.ceil(res['count'] / 5)
