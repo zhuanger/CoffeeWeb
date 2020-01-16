@@ -19,7 +19,9 @@ module.exports = function (app) {
   require('./goods/selectGoodByVague')(app);
   require('./goods/updateGood')(app);
   require('./order/order')(app);
-  require('./order/qrcode')(app);
+  // require('./order/qrcode')(app);
   require('./order/selectUserGoods')(app);
   require('./order/updatePayStatus')(app);
+  require('./qrcode/getQrCode')(app);
+  require('./qrcode/uploadQrCode')(app);
 }
