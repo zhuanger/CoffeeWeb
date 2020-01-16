@@ -135,7 +135,7 @@ let goodDao = {
                 result['hotinfo'] = res
                 goodsModel.findAndCountAll().then((res)=>{
                     result['count'] = res.count
-                    result['pagenum'] = Math.ceil(res['count'] / 5)
+                    result['pagenum'] = Math.ceil(res['count'] / pageSize)
                     reslove(result)
                 })
             })

@@ -29,7 +29,7 @@ let orderDao = {
           }).then((res)=>{
             let result = {}
             result['pageinfo'] = res;
-            orderModel.findAndCountAll().then((resAll)=>{
+            orderModel.findAndCountAll({where:{user_id: data.user_id}}).then((resAll)=>{
               result['pagenum'] = Math.ceil(resAll['count'] / 5);
               reslove(result);
             })

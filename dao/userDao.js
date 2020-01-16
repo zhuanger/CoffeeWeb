@@ -36,7 +36,11 @@ let userDao = {
       }).then((res)=>{
         let result = {}
         result['pageinfo'] = res;
-        userModel.findAndCountAll().then((resAll)=>{
+        userModel.findAndCountAll({where: {
+          'id' :{
+            [Op.ne] : data.user_id
+          }
+        }}).then((resAll)=>{
           result['pagenum'] = Math.ceil(resAll['count'] / 5);
           reslove(result);
         })
