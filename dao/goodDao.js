@@ -66,14 +66,16 @@ let goodDao = {
     selecttypeinfo(data){
       return new Promise ((reslove, reject)=>{
         let page = data.page || 1;
+        let num = Number(data.num) || 5;
         goodsModel.findAll({where: {good_types_id: data.good_types_id}
-        ,limit: 5,
-        offset: 5*(page-1)
+        ,limit: num,
+        offset: num*(page-1)
       }).then((res)=>{
           let result = {};
           result['pageinfo'] = res;
-          goodsModel.findAndCountAll().then((resAll)=>{
-            result['pagenum'] = Math.ceil(resAll['count'] / 5);
+          goodsModel.findAndCountAll({where: {good_types_id: data.good_types_id}}).then((resAll)=>{
+            console.log('resAll', resAll['count']);
+            result['pagenum'] = Math.ceil(resAll['count'] / num);
             reslove(result);
           })         
         })
