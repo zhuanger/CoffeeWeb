@@ -13,7 +13,8 @@ const sequelize = new Sequelize('coffee', 'root', 'root', {
   dialectOptions: {
     dateStrings: true,
     typeCast: true
-  }
+  },
+  timezone: '+08:00' 
 });
 module.exports = sequelize
 // module.exports = function(){

@@ -3,9 +3,10 @@ let orderModel = require(__model + 'orderModel.js')
 let orderDao = {
     create(res){
         return new Promise((reslove, reject)=>{
-            orderModel.create(res.body).then((res)=>{
-                reslove(res)
-            })
+          console.log('res.body', res);
+          orderModel.create(res).then((res)=>{
+              reslove(res)
+          })
         })
     },
     // 记录订单详细信息，json->拿到你订单相应物品及物品数量 res = { username:"weicong",detail:[{a:1},{b,2}]}
