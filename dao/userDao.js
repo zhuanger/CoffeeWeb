@@ -32,6 +32,9 @@ let userDao = {
         },
         limit: 5,
         offset: 5*(num-1),
+        'order': [
+          ['id', 'DESC']
+        ],
         raw: true
       }).then((res)=>{
         let result = {}
