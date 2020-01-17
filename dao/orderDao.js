@@ -28,7 +28,7 @@ let orderDao = {
               limit: 5,
               offset: 5*(page-1)
           }).then((res)=>{
-            let result = {}
+            let result = {};
             result['pageinfo'] = res;
             orderModel.findAndCountAll({where:{user_id: data.user_id}}).then((resAll)=>{
               result['pagenum'] = Math.ceil(resAll['count'] / 5);

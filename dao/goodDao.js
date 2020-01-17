@@ -72,9 +72,13 @@ let goodDao = {
         offset: num*(page-1)
       }).then((res)=>{
           let result = {};
+          //为什么只返回一个  todo
+          console.log(res[0]);
+          // res[0].dataValues.forEach((item)=>{
+          //   item.image = Buffer.from(item.image).toString('base64');
+          // });
           result['pageinfo'] = res;
           goodsModel.findAndCountAll({where: {good_types_id: data.good_types_id}}).then((resAll)=>{
-            console.log('resAll', resAll['count']);
             result['pagenum'] = Math.ceil(resAll['count'] / num);
             reslove(result);
           })         
