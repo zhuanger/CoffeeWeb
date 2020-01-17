@@ -1,19 +1,19 @@
 let qrcodeModel = require(__model + 'qrcodeModel.js')
 
 let qrcodeDao = {
-    create(res){
-        return new Promise((reslove, reject)=>{
-            qrcodeModel.create(res.body).then((res)=>{
-                reslove(res)
-            })
+    update(data){
+      return new Promise((reslove, reject)=>{
+        qrcodeModel.update({image: data.image}, {where: {id: data.id}}).then((res)=>{
+          reslove(res);
         })
+      })
     },
-    select(){
-        return new Promise((reslove, reject)=>{
-            qrcodeModel.findAll().then((res)=>{
-                reslove(res)
-            })
+    getQrCode(){
+      return new Promise((reslove, reject)=>{
+        qrcodeModel.findAll().then((res)=>{
+          reslove(res);
         })
+      })
     }
 }
 module.exports = qrcodeDao

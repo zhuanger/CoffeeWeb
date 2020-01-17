@@ -3,9 +3,10 @@ let orderModel = require(__model + 'orderModel.js')
 let orderDao = {
     create(res){
         return new Promise((reslove, reject)=>{
-            orderModel.create(res.body).then((res)=>{
-                reslove(res)
-            })
+          console.log('res.body', res);
+          orderModel.create(res).then((res)=>{
+              reslove(res)
+          })
         })
     },
     // 记录订单详细信息，json->拿到你订单相应物品及物品数量 res = { username:"weicong",detail:[{a:1},{b,2}]}
@@ -27,9 +28,9 @@ let orderDao = {
               limit: 5,
               offset: 5*(page-1)
           }).then((res)=>{
-            let result = {}
+            let result = {};
             result['pageinfo'] = res;
-            orderModel.findAndCountAll().then((resAll)=>{
+            orderModel.findAndCountAll({where:{user_id: data.user_id}}).then((resAll)=>{
               result['pagenum'] = Math.ceil(resAll['count'] / 5);
               reslove(result);
             })
@@ -62,7 +63,6 @@ let orderDao = {
                         {whether_pay: 'True'},
                         {where:{id: order_id}}
                     ).then((res)=>{
-                        console.log(res)
                         result['code'] = 200
                         reslove(result)
                     })

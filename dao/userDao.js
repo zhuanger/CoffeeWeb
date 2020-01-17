@@ -6,7 +6,6 @@ const Op = Sequelize.Op;
 let userDao = {
   //增加一个用户，注册 
   addUser(data){
-    console.log(data);
     return new Promise((reslove, reject)=>{
       // todo 做多一个查询是否存在此店员 ..这里要时间最新的是第一条 todo 
       userModel.findOne({where: {username: data.username}}).then((res)=>{
@@ -36,9 +35,12 @@ let userDao = {
         raw: true
       }).then((res)=>{
         let result = {}
-        console.log('res', res);
         result['pageinfo'] = res;
-        userModel.findAndCountAll().then((resAll)=>{
+        userModel.findAndCountAll({where: {
+          'id' :{
+            [Op.ne] : data.user_id
+          }
+        }}).then((resAll)=>{
           result['pagenum'] = Math.ceil(resAll['count'] / 5);
           reslove(result);
         })

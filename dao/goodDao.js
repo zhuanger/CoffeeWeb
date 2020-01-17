@@ -66,14 +66,20 @@ let goodDao = {
     selecttypeinfo(data){
       return new Promise ((reslove, reject)=>{
         let page = data.page || 1;
+        let num = Number(data.num) || 5;
         goodsModel.findAll({where: {good_types_id: data.good_types_id}
-        ,limit: 5,
-        offset: 5*(page-1)
+        ,limit: num,
+        offset: num*(page-1)
       }).then((res)=>{
           let result = {};
+          //为什么只返回一个  todo
+          console.log(res[0]);
+          // res[0].dataValues.forEach((item)=>{
+          //   item.image = Buffer.from(item.image).toString('base64');
+          // });
           result['pageinfo'] = res;
-          goodsModel.findAndCountAll().then((resAll)=>{
-            result['pagenum'] = Math.ceil(resAll['count'] / 5);
+          goodsModel.findAndCountAll({where: {good_types_id: data.good_types_id}}).then((resAll)=>{
+            result['pagenum'] = Math.ceil(resAll['count'] / num);
             reslove(result);
           })         
         })
@@ -133,7 +139,7 @@ let goodDao = {
                 result['hotinfo'] = res
                 goodsModel.findAndCountAll().then((res)=>{
                     result['count'] = res.count
-                    result['pagenum'] = Math.ceil(res['count'] / 5)
+                    result['pagenum'] = Math.ceil(res['count'] / pageSize)
                     reslove(result)
                 })
             })
