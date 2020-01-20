@@ -112,7 +112,10 @@ let goodDao = {
                 offset: pageSize*(num-1),
             }).then((res)=>{
                 var result = {}
-                result['newinfo'] = res
+                result['newinfo'] = res;
+                res.forEach((item)=>{
+                  item.dataValues.image = Buffer.from(item.dataValues.image).toString('base64');
+                })
                 goodsModel.findAndCountAll().then((res)=>{
                     result['count'] = res.count
                     result['pagenum'] = Math.ceil(res['count'] / 5)
@@ -133,10 +136,13 @@ let goodDao = {
                 limit: pageSize,
                 offset: pageSize * (num-1),
             }).then((res)=>{
-                var result = {}
-                result['hotinfo'] = res
+                var result = {};
+                res.forEach((item)=>{
+                  item.dataValues.image = Buffer.from(item.dataValues.image).toString('base64');
+                })
+                result['hotinfo'] = res;
                 goodsModel.findAndCountAll().then((res)=>{
-                    result['count'] = res.count
+                    // result['count'] = res.count
                     result['pagenum'] = Math.ceil(res['count'] / pageSize)
                     reslove(result)
                 })
