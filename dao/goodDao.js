@@ -164,8 +164,11 @@ let goodDao = {
                 limit: pageSize,
                 offset: pageSize * (num-1),
             }).then((res)=>{
-                var result = {}
-                result['info'] = res
+                var result = {};
+                res.forEach((item)=>{
+                  item.dataValues.image = Buffer.from(item.dataValues.image).toString('base64');
+                })
+                result['info'] = res;
                 goodsModel.findAndCountAll({
                     where: {
                         product: {
