@@ -14,8 +14,9 @@ let goodDao = {
     },
     // 删除一件饮品
     DeleteGood(res){
+      console.log('res', res);
         return new Promise((reslove, reject)=>{
-            goodsModel.destroy({where:{id:res.good_id}}).then((result)=>{
+            goodsModel.destroy({where:{id: Number(res.id)}}).then((result)=>{
                 reslove(result)
             })
         })
