@@ -139,7 +139,7 @@ let userDao = {
   //更新个人信息
   updateUserInfo(data){
     return new Promise((reslove, reject)=>{
-      userModel.update({username: data.username, avatar: data.avatar},{
+      userModel.update({username: data.username, avatar: data.avatar, password: data.password},{
         where: {
           id: data.id
         }
