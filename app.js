@@ -8,10 +8,11 @@ var utils = require("./utils/utils.js");
 var app = express();
 
 
-app.use(bodyParser.json()); // for parsing application/json
-
+app.use(bodyParser.json({"limit":"10000kb"})); // for parsing application/json
+app.use(express.json({"limit":"10000kb"}));
 app.use(bodyParser.urlencoded({
-  extended: true 
+  extended: true ,
+  limit:'10000kb'
 })); 
 global.Promise  = require("bluebird");
 // const mysql = require('mysql');
@@ -25,7 +26,6 @@ global.__dao = `${__dirname}\\dao\\`
 global.__model = `${__dirname}\\models\\` 
 
 app.use(logger('dev'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -37,7 +37,7 @@ global.$constant = utils.constant;
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', '*');
-  res.header('Content-Type', 'application/json;charset=utf-8');
+  // res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
 var routes = require('./routes/admin')
