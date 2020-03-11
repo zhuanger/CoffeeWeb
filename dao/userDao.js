@@ -12,7 +12,7 @@ let userDao = {
         if(res !== null){
           reslove({code: 201});
         }else{
-          userModel.create({username: data.username, password: data.password, role_id: 1}).then((res)=>{
+          userModel.create({username: data.username, password: data.password, role_id: 1, avatar: $constant.avatar}).then((res)=>{
               reslove(res);
             })
         }
@@ -37,7 +37,13 @@ let userDao = {
         ],
         raw: true
       }).then((res)=>{
-        let result = {}
+        let result = {};
+        for(let i = 0;i<res.length; i++){
+          if(res[i].avatar !== null){
+            res[i].avatar = Buffer.from(res[i].avatar).toString('base64');
+          }
+        }
+        console.log('res', res);
         result['pageinfo'] = res;
         userModel.findAndCountAll({where: {
           'id' :{
