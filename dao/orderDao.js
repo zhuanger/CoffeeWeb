@@ -1,4 +1,5 @@
 let orderModel = require(__model + 'orderModel.js')
+let goodModel = require(__model + 'goodsModel.js')
 
 let orderDao = {
     create(res){
@@ -48,6 +49,8 @@ let orderDao = {
             ).then((res)=>{
                 var result = {}
                 var overtime = new Date(res.dataValues.overtime)
+                //数据库获取order_goods中的数据，并转为json对象
+                var order_json = JSON.parse(res['dataValues']['order_goods'])
                 if(res.dataValues.whether_pay === 'True'){
                     result['code'] = 202
                     result['info'] = res
@@ -64,6 +67,23 @@ let orderDao = {
                         {where:{id: order_id}}
                     ).then((res)=>{
                         result['code'] = 200
+                        for (i = 0; i<order_json.length; i++){
+                            //获取订单中每一件商品的id
+                            good_id = order_json[i]['id']
+                            //获取订单中每一件商品的购买件数
+                            buy_num = order_json[i]['buyNum']
+                            goodModel.findOne({ where: {id:good_id} }).then((res)=>{
+                                //更新库存
+                                new_good_sell_num = res['stock'] - buy_num
+                                //更新销量
+                                sell_num = res['sell_num'] + buy_num
+                                goodModel.update(
+                                    {stock: new_good_sell_num, sell_num:sell_num}, {where:{id:good_id}}).then((res)=>{
+                                        console.log(res)
+                                })
+                            })
+                            
+                        }
                         reslove(result)
                     })
                 }
