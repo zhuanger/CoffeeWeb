@@ -32,25 +32,25 @@ let goodDao = {
     //查询所有咖啡
     selectall(data){
       return new Promise((reslove, reject)=>{
-        var num = data.body.page
+        let num = data.body.page, sortBy = JSON.parse(data.body.sortBy) || ['id', 'DESC']; // DESC是降序 ASC是升序
         goodsModel.findAll({
-            limit: 5,
-            offset: 5*(num-1),
-            'order': [
-                ['id', 'DESC']
-            ]
+          limit: 5,
+          offset: 5*(num-1),
+          'order': [
+            sortBy
+          ]
         }).then((res)=>{
             var result = {}
             result['pageinfo'] = res;
             goodsModel.findAndCountAll().then((res)=>{
-                var pagenum = Math.ceil(res['count'] / 5);
-                result['pageinfo'].forEach(element => {
-                  if(element.dataValues.image){
-                    element.dataValues.image = Buffer.from(element.dataValues.image).toString('base64');
-                  }
-                });
-                result['pagenum'] = pagenum
-                reslove(result);
+              var pagenum = Math.ceil(res['count'] / 5);
+              result['pageinfo'].forEach(element => {
+                if(element.dataValues.image){
+                  element.dataValues.image = Buffer.from(element.dataValues.image).toString('base64');
+                }
+              });
+              result['pagenum'] = pagenum
+              reslove(result);
             })
         })
       })
