@@ -66,25 +66,25 @@ let orderDao = {
                         {whether_pay: 'True'},
                         {where:{id: order_id}}
                     ).then((res)=>{
-                        result['code'] = 200
-                        for (i = 0; i<order_json.length; i++){
+                        result['code'] = 200;
+                        for (let i = 0; i<order_json.length; i++){
                             //获取订单中每一件商品的id
-                            good_id = order_json[i]['id']
+                            let good_id = order_json[i]['id']
                             //获取订单中每一件商品的购买件数
-                            buy_num = order_json[i]['buyNum']
+                            let buy_num = order_json[i]['buyNum']
                             goodModel.findOne({ where: {id:good_id} }).then((res)=>{
                                 //更新库存
-                                new_good_sell_num = res['stock'] - buy_num
-                                //更新销量
-                                sell_num = res['sell_num'] + buy_num
+                                let new_good_sell_num = Number(res['stock']) - Number(buy_num);
+                                console.log('new_good_sell_num---->', new_good_sell_num)
+                                //更新销量/*  */
+                                let sell_num = res['sell_num'] + buy_num
                                 goodModel.update(
-                                    {stock: new_good_sell_num, sell_num:sell_num}, {where:{id:good_id}}).then((res)=>{
-                                        console.log(res)
+                                  {stock: new_good_sell_num, sell_num:sell_num}, {where:{id:good_id}}).then((res)=>{
+                                    reslove(result)
                                 })
                             })
                             
                         }
-                        reslove(result)
                     })
                 }
             })
