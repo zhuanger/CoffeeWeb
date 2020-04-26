@@ -54,7 +54,11 @@ const goodService = {
     async updateGood(res){
       let result = await goodDao.UpdateGood(res.body)
       return result
-  },
+    },
+    async getAllGoodsImport(res){
+      let result = await goodDao.getAllGoodsImport(res.body)
+      return result
+    },
 
 }
 module.exports = goodService

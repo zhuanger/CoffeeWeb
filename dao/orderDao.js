@@ -89,6 +89,17 @@ let orderDao = {
                 }
             })
         })
+    },
+    getAllOrder(data){
+      return new Promise((reslove) => {
+        orderModel.findAll(
+          {
+            where:{user_id: data.user_id},
+          }).then((result)=>{
+            reslove(result);
+        })
+      })
+      
     }
 }
 module.exports = orderDao

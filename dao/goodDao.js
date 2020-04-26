@@ -183,6 +183,14 @@ let goodDao = {
                 })
             })
         })
+    },
+
+    getAllGoodsImport(){
+      return new Promise((reslove) => {
+        goodsModel.findAll().then((res) => {
+          reslove(res);
+        })
+      })
     }
 }
 module.exports = goodDao

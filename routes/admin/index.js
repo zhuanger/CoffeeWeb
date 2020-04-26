@@ -6,6 +6,8 @@ module.exports = function (app) {
   require('./user/getRole')(app);
   require('./user/setRole')(app);
   require('./user/updateUserInfo')(app);
+  require('./user/getAllUserToImport')(app);
+  require('./user/importUser')(app);
   require('./user/updateRole')(app);
   require('./goods/createGood')(app);
   require('./goods/deleteGood')(app);
@@ -18,10 +20,12 @@ module.exports = function (app) {
   require('./goods/selectNewGoods')(app);
   require('./goods/selectGoodByVague')(app);
   require('./goods/updateGood')(app);
+  require('./goods/getAllGoods')(app);
   require('./order/order')(app);
   // require('./order/qrcode')(app);
   require('./order/selectUserGoods')(app);
   require('./order/updatePayStatus')(app);
+  require('./order/getAllOrder')(app);
   require('./qrcode/getQrCode')(app);
   require('./qrcode/uploadQrCode')(app);
 }

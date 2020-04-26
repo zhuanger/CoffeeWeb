@@ -32,6 +32,14 @@ const UserService = {
   async updateRole(data){
     let result = await userDao.updateRole(data);
     return result
-  }
+  },
+  async getAllUserToImport(data){
+    let result = await userDao.getAllUserToImport(data);
+    return result
+  },
+  async importUser(data){
+    let result = await userDao.importUser(data);
+    return result
+  },
 }
 module.exports = UserService

@@ -43,7 +43,6 @@ let userDao = {
             res[i].avatar = Buffer.from(res[i].avatar).toString('base64');
           }
         }
-        console.log('res', res);
         result['pageinfo'] = res;
         userModel.findAndCountAll({where: {
           'id' :{
@@ -56,7 +55,44 @@ let userDao = {
       })
     })
   },
-
+  importUser(data){
+    return new Promise((reslove, reject) => {
+      let _data = data.body;
+      data.list = JSON.parse(data.list).map((item) => {
+        item.password = '123456';
+        if(item.role_id ==='店员'){
+          item.role_id = 1;
+          return item
+        }else if(item.role_id ==='老板'){
+          item.role_id = 2;
+          return item
+        }
+      })
+      userModel.bulkCreate(data.list, {raw: true}).then((result ) => {
+        console.log('result ', result.length);
+        reslove(result.length)
+      })  
+    })
+  },
+  getAllUserToImport(data){
+    return new Promise((reslove, reject) => {
+      let _data = data.body;
+      userModel.findAll({
+        where: {
+          'id' :{
+            [Op.ne] : data.user_id
+          }
+        },
+        'order': [
+          ['id', 'DESC']
+        ],
+        raw: true
+      }).then((res) => {
+        console.log('res', res);
+        reslove(res);
+      })
+    })
+  },
   // 登录
   login(data){
     return new Promise((reslove, reject)=>{

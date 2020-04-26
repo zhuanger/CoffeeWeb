@@ -24,6 +24,10 @@ const orderService = {
     async UpdatePayStatus(res){
         let result = await orderDao.UpdatePayStatus(res)
         return result
+    },
+    async getAllOrder(res){
+      let result = await orderDao.getAllOrder(res)
+      return result
     }
     // async uploadQRcode(res){
     //     let result = await qrcodeDao.Create(res)
