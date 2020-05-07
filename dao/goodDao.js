@@ -105,6 +105,7 @@ let goodDao = {
         return new Promise ((reslove, reject)=>{
             var num = data.page || 1;
             var pageSize =  Number(data.pageSize) || 5;
+            // 根据add_date添加时间来排序 销售最多的为第一个
             goodsModel.findAll({
                 'order': [
                     ['add_date', 'DESC']
@@ -117,6 +118,7 @@ let goodDao = {
                 res.forEach((item)=>{
                   item.dataValues.image = Buffer.from(item.dataValues.image).toString('base64');
                 })
+                // 查询商品表的数量
                 goodsModel.findAndCountAll().then((res)=>{
                     result['count'] = res.count
                     result['pagenum'] = Math.ceil(res['count'] / 5)
@@ -130,6 +132,7 @@ let goodDao = {
         return new Promise ((reslove, reject)=>{
             var num = data.page || 1;
             var pageSize =  Number(data.pageSize) || 5;
+            // 根据sell_num来排序 销售最多的为第一个
             goodsModel.findAll({
                 'order': [
                     ['sell_num', 'DESC']
@@ -139,9 +142,11 @@ let goodDao = {
             }).then((res)=>{
                 var result = {};
                 res.forEach((item)=>{
+                  // 解码图片
                   item.dataValues.image = Buffer.from(item.dataValues.image).toString('base64');
                 })
                 result['hotinfo'] = res;
+                // 找到商品表的数量
                 goodsModel.findAndCountAll().then((res)=>{
                     // result['count'] = res.count
                     result['pagenum'] = Math.ceil(res['count'] / pageSize)
@@ -185,11 +190,27 @@ let goodDao = {
         })
     },
 
-    getAllGoodsImport(){
+    getAllGoodsImport(data){
+      console.log('---',data);
       return new Promise((reslove) => {
-        goodsModel.findAll().then((res) => {
-          reslove(res);
-        })
+        if(!data.startDate){
+          goodsModel.findAll().then((res) => {
+            reslove(res);
+          })
+        }else{
+          goodsModel.findAll({
+            where: {
+              add_date: {
+                [Op.between]: [data.startDate, data.endDate]
+              }
+            }
+          }).then((res)=>{
+            console.log('res', res);
+
+            reslove(res);
+          })
+        }
+        
       })
     }
 }
